@@ -1,0 +1,54 @@
+{% load static %}
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <!-- Container wrapper -->
+  <div class="container">
+    <!-- Navbar brand -->
+    <a class="navbar-brand me-1" href={% url 'home' %}></a>
+    <!-- Toggle button -->
+    <button class="navbar-toggler"
+            type="button"
+            data-mdb-toggle="collapse"
+            data-mdb-target="#navbarButtonsExample"
+            aria-controls="navbarButtonsExample"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button>
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarButtonsExample">
+      <!-- Left links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Hospital Managment System</a>
+        </li>
+      </ul>
+      <!-- Left links -->
+      <div class="d-flex align-items-center">
+        {% if user.is_superuser %}
+          <a href="{% url 'home' %}"
+             class="btn btn-link px-3 me-2 {% if request.resolver_match.view_name == 'home' %} btn-active{% endif %}"
+             data-mdb-ripple-color="success">Home</a>
+          <a href="{% url 'admin_doctor' %}"
+             class="btn btn-link px-3 me-2 {% if request.resolver_match.view_name == 'admin_doctor' %} btn-active{% endif %}"
+             data-mdb-ripple-color="success">Doctors</a>
+          <a href="{% url 'admin_patient' %}"
+             class="btn btn-link px-3 me-2 {% if request.resolver_match.view_name == 'admin_patient' %} btn-active{% endif %}"
+             data-mdb-ripple-color="success">Patient</a>
+          <a href="{% url 'admin_department' %}"
+             class="btn btn-link px-3 me-2 {% if request.resolver_match.view_name == 'admin_department' %} btn-active{% endif %}"
+             data-mdb-ripple-color="success">Department</a>
+        {% endif %}
+        {% if user.user_type == "PT" %}
+          <a href="{% url 'home' %}"
+             class="btn btn-link px-3 me-2 {% if request.resolver_match.view_name == 'home' %} btn-active{% endif %}"
+             data-mdb-ripple-color="success">Home</a>
+        {% endif %}
+        <a href={% url 'logout' %} class="btn btn-link px-3 me-2 ">Logout</a>
+      </div>
+    </div>
+    <!-- Collapsible wrapper -->
+  </div>
+  <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->

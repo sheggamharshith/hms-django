@@ -1,0 +1,18 @@
+{% extends 'layout/index.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block body %}
+    <div class="container d-flex justify-content-center align-items-center mt-5 ">
+        <div class="login-form p-5  rounded my-auto bg-white shadow">
+            <h4 class='mb-4'>Signup Patient</h4>
+            <div class='container'>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button type="submit" class="btn btn-success">Signup</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock body %}
+s

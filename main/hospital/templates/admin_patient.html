@@ -1,0 +1,56 @@
+{% extends 'layout/dashboard.html' %}
+{% load static %}
+{% block custom-css %}
+{% endblock custom-css %}
+{% block body %}
+    <div class="container">
+        <div class=" mb-4 d-flex justify-content-between align-items-center">
+            <h4>Patients Table</h4>
+        </div>
+        <div class="table-responsive shadow-4 ">
+            <table class="table align-middle mb-0 bg-white">
+                <thead class="bg-primary text-white ">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Age</th>
+                        <th>DOB</th>
+                        <th>Sex</th>
+                        <th>Gaurdian</th>
+                        <th>Status</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for patient in patients %}
+                        <tr>
+                            <td>{{ patient.user.first_name }} {{ patient.user.last_name }}</td>
+                            <td>{{ patient.user.email }}</td>
+                            <td>{{ patient.age }}</td>
+                            <td>{{ patient.dob }}</td>
+                            <td>{{ patient.sex }}</td>
+                            <td>{{ patient.guardian_name }}</td>
+                            <td>
+                                {% if patient.user.is_active %}
+                                    <span class="badge bg-success">Active</span>
+                                {% else %}
+                                    <span class="badge bg-danger">Deactive</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <form action="{% url 'admin_patient_status' patient.id %}" method='post'>
+                                    {% csrf_token %}
+                                    {% if not patient.user.is_active %}
+                                        <button type="submit" class="btn btn-success">Active</button>
+                                    {% else %}
+                                        <button type="submit" class="btn btn-danger">Deactive</button>
+                                    {% endif %}
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock body %}

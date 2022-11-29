@@ -1,0 +1,52 @@
+{% extends 'layout/dashboard.html' %}
+{% load static %}
+{% block custom-css %}
+{% endblock custom-css %}
+{% block body %}
+    <div class="mx-5">
+        Department Approval Table
+        <table class="table">
+            <thead>
+                <tr class='bg-primary text-white'>
+                    <th>Fist Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Sex</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Guardian</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">DOB</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for appointment in appointments %}
+                    <tr>
+                        <td>{{ appointment.first_name }}</td>
+                        <td>{{ appointment.last_name }}</td>
+                        <td>{{ appointment.user.email }}</td>
+                        <td>{{ appointment.age }}</td>
+                        <td>{{ appointment.sex }}</td>
+                        <td>{{ appointment.phone_number }}</td>
+                        <td>{{ appointment.guardian_name }}</td>
+                        <td>{{ appointment.location }}</td>
+                        <td>{{ appointment.dob }}</td>
+                        <td>{{ appointment.date }}</td>
+                        <td>
+                            <button class="btn btn-warning">Pending</button>
+                        </td>
+                        <td>
+                            <a href="{% url 'department_appointment_approval' appointment.id %}"
+                               class="btn btn-success">Approve</a>
+                            <button class="btn btn-primary">View Detail</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <
+    </div>
+{% endblock body %}

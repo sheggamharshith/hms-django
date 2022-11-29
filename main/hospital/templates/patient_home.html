@@ -1,0 +1,35 @@
+{% extends 'layout/dashboard.html' %}
+{% load static %}
+{% block custom-css %}
+{% endblock custom-css %}
+{% block body %}
+    <div class='container'>
+        <div class="card bg-whtie shadow-5 p-4">
+            <h5 class="card-header mb-4">Welcome to Hospital Management System</h5>
+            <div class="card-body">
+                <h5 class="card-title">{{ request.user.first_name }}</h5>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">First Name</th>
+                            <th scope="col">Last Name</th>
+                            <th scope="col">Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ request.user.first_name }}</td>
+                            <td>{{ request.user.last_name }}</td>
+                            <td>{{ request.user.email }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br/>
+                <h5>Options</h5>
+                <br/>
+                <a href="{% url 'create_appointment' %}" class="btn btn-primary">Book Appiontment</a>
+                <a href="{% url 'view_appointment' %}"  class="btn btn-primary">View Appiontment</a>
+            </div>
+        </div>
+    </div>
+{% endblock body %}
