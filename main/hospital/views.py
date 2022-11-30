@@ -5,8 +5,14 @@ from django.views import View
 from django.views.generic.edit import FormView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from common.permission import SuperUserRequiredMixin
-from .forms import DoctorForm, DepartmentForm, AppointmentForm, AppointmentBookRoomForm
-from .models import Doctor, Department, Appointment, Patient
+from .forms import (
+    DoctorForm,
+    DepartmentForm,
+    AppointmentForm,
+    AppointmentBookRoomForm,
+    PrescriptionFormView,
+)
+from .models import Doctor, Department, Appointment, Patient, Prescription
 from user.models import User
 from user.forms import DepartmentUserForm
 
@@ -28,6 +34,12 @@ class HomePageView(LoginRequiredMixin, View):
             return render(request, "patient_home.html")
         if request.user.user_type == "DP":
             return render(request, "department_home.html")
+        if request.user.user_type == "DT":
+            return render(
+                request,
+                "doctor_home.html",
+            )
+        return render(request)
 
 
 class DoctorAdminView(SuperUserRequiredMixin, View):
@@ -195,3 +207,37 @@ class AppointmentApprovalDepartmentView(LoginRequiredMixin, View):
             ap.save()
             return redirect("/department-appointment")
         return render(request, "department_approval_view.html", {"form": form})
+
+
+class DoctorPatientView(LoginRequiredMixin, View):
+    def get(self, request, id=None):
+        context = {}
+        context["patients"] = Appointment.objects.filter(
+            doctor__user_id=self.request.user.id
+        )
+        print(context)
+        return render(request, "doctor_patient_home.html", context)
+
+
+class PrescriptionView(LoginRequiredMixin, View):
+    def get(self, request, id=None):
+        context = {}
+        context["pers"] = Prescription.objects.get(id=id)
+        print(context)
+        return render(request, "prs.html", context)
+
+
+class PrescriptionAddView(LoginRequiredMixin, View):
+    def get(self, request, id=None):
+        context = {}
+        context["form"] = PrescriptionFormView(
+            initial={"Appointment": Appointment.objects.get(id=id)}
+        )
+        return render(request, "prs_form.html", context)
+
+    def post(self, request, id=None):
+        form = PrescriptionFormView(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("/doctor-patient")
+        return render(request, "prs_form.html", {"form": form})

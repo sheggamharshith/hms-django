@@ -14,6 +14,9 @@ from .views import (
     AppointmentDeleteView,
     AppointmentDepartmentView,
     AppointmentApprovalDepartmentView,
+    DoctorPatientView,
+    PrescriptionAddView,
+    PrescriptionView,
 )
 
 urlpatterns = [
@@ -85,5 +88,20 @@ urlpatterns = [
         "department-approval/<id>",
         AppointmentApprovalDepartmentView.as_view(),
         name="department_appointment_approval",
+    ),
+    path(
+        "doctor-patient",
+        DoctorPatientView.as_view(),
+        name="doctor_patient",
+    ),
+    path(
+        "prescription-add/<id>",
+        PrescriptionAddView.as_view(),
+        name="doctor_prs",
+    ),
+    path(
+        "prescription-view/<id>",
+        PrescriptionView.as_view(),
+        name="doctor_prs_view",
     ),
 ]

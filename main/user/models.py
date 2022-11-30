@@ -87,7 +87,6 @@ class UserManager(BaseUserManager):
 class User(AbstractUser):
 
     username = None
-    id = UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = EmailField(_("email"), max_length=254, unique=True)
     image = models.ImageField(upload_to="profile_picture", null=False, blank=False)
     force_password_change = models.BooleanField(default=False)

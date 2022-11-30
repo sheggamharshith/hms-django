@@ -1,5 +1,5 @@
 from django import forms
-from .models import Doctor, Department, Appointment, AppointmentRoom, Room
+from .models import Doctor, Department, Appointment, AppointmentRoom, Room, Prescription
 from user.models import User
 from django.core.exceptions import ValidationError
 
@@ -71,4 +71,10 @@ class AppointmentBookRoomForm(forms.ModelForm):
 
     class Meta:
         model = AppointmentRoom
+        fields = "__all__"
+
+
+class PrescriptionFormView(forms.ModelForm):
+    class Meta:
+        model = Prescription
         fields = "__all__"
