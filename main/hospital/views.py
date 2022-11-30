@@ -84,7 +84,7 @@ class DoctorAdminDeleteView(SuperUserRequiredMixin, View):
 class PatientView(SuperUserRequiredMixin, View):
     def get(self, request, id=None):
         context = {}
-        context["patients"] = Patient.objects.all()
+        context["patients"] = User.objects.filter(user_type="PT")
         return render(request, "admin_patient.html", context)
 
     def post(self, request, id):

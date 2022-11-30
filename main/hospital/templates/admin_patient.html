@@ -13,40 +13,14 @@
                     <tr>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Age</th>
-                        <th>DOB</th>
-                        <th>Sex</th>
-                        <th>Gaurdian</th>
-                        <th>Status</th>
-                        <th>Options</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for patient in patients %}
                         <tr>
-                            <td>{{ patient.user.first_name }} {{ patient.user.last_name }}</td>
-                            <td>{{ patient.user.email }}</td>
-                            <td>{{ patient.age }}</td>
-                            <td>{{ patient.dob }}</td>
-                            <td>{{ patient.sex }}</td>
-                            <td>{{ patient.guardian_name }}</td>
-                            <td>
-                                {% if patient.user.is_active %}
-                                    <span class="badge bg-success">Active</span>
-                                {% else %}
-                                    <span class="badge bg-danger">Deactive</span>
-                                {% endif %}
-                            </td>
-                            <td>
-                                <form action="{% url 'admin_patient_status' patient.id %}" method='post'>
-                                    {% csrf_token %}
-                                    {% if not patient.user.is_active %}
-                                        <button type="submit" class="btn btn-success">Active</button>
-                                    {% else %}
-                                        <button type="submit" class="btn btn-danger">Deactive</button>
-                                    {% endif %}
-                                </form>
-                            </td>
+                            <td>{{ patient.first_name }} {{ patient.user.last_name }}</td>
+                            <td>{{ patient.email }}</td>
+    
                         </tr>
                     {% endfor %}
                 </tbody>
