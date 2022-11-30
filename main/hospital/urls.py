@@ -54,7 +54,7 @@ urlpatterns = [
         name="admin_department_add",
     ),
     path(
-        "admin_department_user/<uuid:id>",
+        "admin_department_user/<id>",
         DepartmentUserView.as_view(),
         name="admin_department_user",
     ),
